@@ -2,7 +2,16 @@
 
 #Maria Beatriz Walter Costa
 
-#This script processes a spliceMAP file and returns to the user a list of orthologus lncRNAs in BED format. It also takes as input a reference lncRNA database in BED format, and returns the orthologs only from this database. In essence, it curates a spliceMap file that also contains transcript starts (TSS) and transcript ends and returns to the user a list of BED-format transcripts that are likely to be transcribed in the cell. It takes into account the splicing mechanism, in which a Donor and an Acceptor sites are both required for the intron splicing. If either one is missing, the intron is retained in the final transcript. It takes into account the transcription initiation model as well, in which a TSS and an upstream promotor are required. In the special case that a TSS is lost in the orthologous species, the whole transcript is regarded as if lost in evolution. This requirement is important to avoid including false orthologs in the results, or orthologous that have a weak transcription signal, due to the TSS being too far from the promoter. If the transcript's end is also missing, the resulting transcript is also regarded as lost in evolution. 
+#This script processes a spliceMAP file and returns to the user a list of orthologus lncRNAs in BED format. It also takes 
+#as input a reference lncRNA database in BED format, and returns the orthologs only from this database. In essence, it 
+#curates a spliceMap file that also contains transcript starts (TSS) and transcript ends and returns to the user a list 
+#of BED-format transcripts that are likely to be transcribed in the cell. It takes into account the splicing mechanism, 
+#in which a Donor and an Acceptor sites are both required for the intron splicing. If either one is missing, the intron 
+#is retained in the final transcript. It takes into account the transcription initiation model as well, in which a TSS 
+#and an upstream promotor are required. In the special case that a TSS is lost in the orthologous species, the whole 
+#transcript is regarded as if lost in evolution. This requirement is important to avoid including false orthologs in the 
+#results, or orthologous that have a weak transcription signal, due to the TSS being too far from the promoter. If the 
+#transcript's end is also missing, the resulting transcript is also regarded as lost in evolution. 
 
 #To get the usage run the script with the help option: perl buildOrthologs.pl --help
 
@@ -126,8 +135,10 @@ while (<ref_file>){
 	my @sortedMapLines = sortMapLinesBySpeciesContigs(\@mapLines);
 
 	unless (@sortedMapLines == 0){
-		#We want in the following block to separate the big array of @sortedMapLines into smaller arrays according to the species+contig+strand
-		#Setting the first reference of: species, contig and strand to variables below. They refer to the first element of @sortedMapLines
+		#We want in the following block to separate the big array of @sortedMapLines into smaller arrays 
+		#according to the species+contig+strand
+		#Setting the first reference of: species, contig and strand to variables below. They refer to the first 
+		#element of @sortedMapLines
 		my $species = $sortedMapLines[0][2];
 		my $contig = $sortedMapLines[0][3];
 		my $strand = $sortedMapLines[0][4];
@@ -144,13 +155,15 @@ while (<ref_file>){
 			if ($species eq $_->[2] && $contig eq $_->[3] && $strand eq $_->[4]){
 				push @pre_SDAN, [@{$_}];
 				$reconstructedSignal = "no";
-			#When the current line do not match to the reference, we go to else, print the @SDAN and re-start the reference to the current one
+			#When the current line do not match to the reference, we go to else, print the @SDAN and re-start 
+			#the reference to the current one
 			} else {
 				#Greedy algorithm
 				@fixed_pre_SDAN = fixMinusStrand(\@pre_SDAN);
 				%DAN = prepareBEDline(\@fixed_pre_SDAN,$transcript);
 
-				#The following if transforms invalid into valid transcripts by getting the start and end based on the reference
+				#The following if transforms invalid into valid transcripts by getting the start and end 
+				#based on the reference
 				if($DAN{'status'} eq 'invalid'){
 					$Guide{'guide'} = $DAN{'guide'};
 					$Guide{'contig'} = $DAN{'contig'};
@@ -188,16 +201,18 @@ while (<ref_file>){
 
 				writeBEDline(\%DAN,'printYes',$reconstructedSignal);
 
-				#Get the reference start and end blocks for eventual future orthologs starts/ends reconstruction
+				#Get the reference start and end blocks for eventual future orthologs starts/ends 
+				#reconstruction
 				#The reconstruction will be different if the reference has only one exon block or more
 				if($DAN{'species'} eq $reference_species){
 					my @blockNumber = @{$DAN{'blockSizes'}};
 
-					if (@blockNumber == 1){ #If reference has only one block, stores its BED line in @ref_BED
+					if (@blockNumber == 1){ #If reference has only 1 block, stores its BED line in @ref_BED
 						push @ReferenceLimitBlocks, $DAN{'blockSizes'};
 						my $curr_ref = writeBEDline(\%DAN,'printNo',$reconstructedSignal);
 						push @ref_BED, $curr_ref;
-					} elsif (@blockNumber > 1) { #If reference has more than one block, takes the first and end blocks, constructs BED lines for each and store it in @ref_BED
+					} elsif (@blockNumber > 1) { #If reference has more than one block, takes the first and 
+								     #end blocks, constructs BED lines for each and store it in @ref_BED
 						push @ReferenceLimitBlocks, $DAN{'blockSizes'}[0];
 						push @ReferenceLimitBlocks, $DAN{'blockSizes'}[-1];
 
@@ -209,7 +224,8 @@ while (<ref_file>){
 						push @ref_BED, $curr_ref;
 					}
 				}
-				#Lines below reset the variables so that the if above re-starts with the new species or contig
+				#Lines below reset the variables so that the if above re-starts with the new species 
+				#or contig
 				@pre_SDAN = ();
 				push @pre_SDAN, [@{$_}];
 				$species = $_->[2];
@@ -221,7 +237,8 @@ while (<ref_file>){
 		@fixed_pre_SDAN = fixMinusStrand(\@pre_SDAN);
 		%DAN = prepareBEDline(\@fixed_pre_SDAN,$transcript); 
 
-		#The following if transforms invalid into valid transcripts by getting the start and end based on the reference
+		#The following if transforms invalid into valid transcripts by getting the start and end based on the 
+		#reference
 		if($DAN{'status'} eq 'invalid'){
 			$Guide{'guide'} = $DAN{'guide'};
 			$Guide{'contig'} = $DAN{'contig'};
@@ -265,7 +282,8 @@ close map_file;
 
 ################### Subroutines #####################
 
-#This subroutine receives as (input) the transcript_id, (i) gets all the map_ids of the reference referring to this transcript_is, and returns as (output) all the lines referring to the map_ids, in array @mapLines 
+#This subroutine receives as (input) the transcript_id, (i) gets all the map_ids of the reference referring to this 
+#transcript_is, and returns as (output) all the lines referring to the map_ids, in array @mapLines 
 sub transcript2mapLines {
 	#@ids is an array with all the map_ids related to the current transcript_id
 	my $transcript = $_[0];
@@ -287,7 +305,8 @@ sub transcript2mapLines {
 sub sortMapLinesBySpeciesContigs {
 	my @mapLines = @{$_[0]};
 
-	#The first sorted species must always be the reference! Because the reference is used to build reference blocks for posterior ortholog missing block reconstruction
+	#The first sorted species must always be the reference! Because the reference is used to build reference blocks 
+	#for posterior ortholog missing block reconstruction
 
 	my @firstBlockSort_onlyRef;
 	my @secondBlockSort_others;
@@ -344,7 +363,8 @@ sub prepareBEDline{
 	my $guide = 'undef';
 	my @missing;
 
-	#Check if this data (species, contig and strand) has only one Start and only one End, if not, report an error for the current data
+	#Check if this data (species, contig and strand) has only one Start and only one End, if not, report an error for
+	#the current data
 	foreach (@fixed_pre_SDAN){
 			if ($_->[7] =~ /S/){
 				$countS++;
@@ -427,7 +447,9 @@ sub prepareBEDline{
 		}
 		
 		$blockStarts[0] -= 1;
-		#The @blockStarts we calculated on the previous block of the greedy algorithm is in reference to the contig, not the chromStart as in the BED file, so in the next block, we will make the blockStarts in reference to chromStart
+		#The @blockStarts we calculated on the previous block of the greedy algorithm is in reference to the 
+		#contig, not the chromStart as in the BED file, so in the next block, we will make the blockStarts in 
+		#reference to chromStart
 		foreach(@blockStarts){
 			$_ = $_ - $start + 1;
 		}
@@ -508,7 +530,6 @@ sub getSequence {
 
 	my %myFasta;
 	my $rf_temp = `./retrieve-fasta $reference_species $fn`;
-#print "Status of retrieve fasta: $? (-1 eq 'failed to execute: https://stackoverflow.com/questions/11451680/what-is-the-meaning-of-the-built-in-variable-in-perl')\n";
 	my $rf_seq;
 
 	if($? == -1){
@@ -533,7 +554,10 @@ sub getSequence {
 	return %myFasta;
 }
 
-#Subroutine receives (i) query sequence and guide, (ii) reference for genome to search in, (iii) genome to search in, (iv) cutoff for blast hits. It returns a hash with BLAST best hit (i) contig, (ii) start, (iii) end, (iv) sequence. Best hit was chosen from a pool of BLAST hits within the e-value threshold and that was within the shortest distance to reference guide
+#Subroutine receives (i) query sequence and guide, (ii) reference for genome to search in, (iii) genome to search in, 
+#(iv) cutoff for blast hits. It returns a hash with BLAST best hit (i) contig, (ii) start, (iii) end, (iv) sequence. 
+#Best hit was chosen from a pool of BLAST hits within the e-value threshold and that was within the shortest distance 
+#to reference guide
 #Hash %blastAddresses is required for this subroutine (as a global structure to the main program)
 sub BLAST2bestHit {
 	my $referenceSequence = $_[0];
@@ -618,7 +642,9 @@ sub BLAST2bestHit {
 							}
 						}
 
-						#Starts the best hit with the top hit and substitutes it IF evalue keeps under cutoff AND distance between start and guide is lower than the old best hit
+						#Starts the best hit with the top hit and substitutes it IF evalue keeps 
+						#under cutoff AND distance between start and guide is lower than the old 
+						#best hit
 						if ($marker == 0) {
 							$start = $hsp->start('hit');
 							$contig = $hit->name();
