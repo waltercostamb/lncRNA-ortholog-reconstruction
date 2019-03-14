@@ -1,8 +1,10 @@
-# lncRNA-ortholog-reconstruction
+# LncRNA orthology
 
-This repository contains the retrieve-fasta program to retrieve FASTA sequences from a BED12 file; a script to transform GFF3 features into BED12 lines and a script for retrieving full transcript orthologs from a list of ortholog splice sites of lncRNAs.
+This repository contains scripts related to retrieving full-transcript orthologs from a reference list of lncRNAs.
 
 __***buildOrthologs.pl***__
+
+buildOrthologs.pl retrieves full transcripts from a list of ortholog splice sites of lncRNAs. The main input for the script is a MAP_FILE from the SpliceMap Pipeline (Nitsche et al 2015); the output is in BED12 format.
 
 Usage: buildOrthologs.pl --input MAP_FILE --db REF_BED --map_threshold N --reference SPECIES --blast_address FILE --blast_threshold I --blast_thread T --db_reg_exp EXP --lower_seq_thresh L --upper_seq_thresh U
 
@@ -21,9 +23,13 @@ mandatory parameters:
 
 __***retrieve-fasta***__
 
+retrieve-fasta retrieves FASTA sequences from a BED12 file
+
 Usage: retrieve-fasta GENOME_FASTA BED_FILE
 
 __***GFF32BED12.pl***__
+
+GFF32BED12.pl transforms GFF3 features into BED12 lines
 
 Usage: perl GFF32BED12.pl --gff GFF3_FILE --type TYPE
 
