@@ -49,7 +49,7 @@ GetOptions(
 ) or die "Usage: $0 --input MAP_FILE --db REF_BED --map_threshold N --reference SPECIES --blast_address FILE --blast_threshold I --blast_thread T --db_reg_exp EXP --lower_seq_thresh L --upper_seq_thresh U\n";
 
 if ($help){
-	print "Reconstruction of lncRNA orthologs\n";
+	print "\nReconstruction of lncRNA orthologs\n";
 	print "Maria Beatriz Walter Costa (bia\@bioinf.uni-leipzig.de)\n\n";
 	print "Usage: $0 --input MAP_FILE --db REF_BED --map_threshold N --reference SPECIES --blast_address FILE --blast_threshold I --blast_thread T --db_reg_exp EXP --lower_seq_thresh L --upper_seq_thresh U\n\n";
 	print "IMPORTANT: this script requires a high baseline memory. For a 2.6 Mb REF_BED and a 670 Mb MAP_FILE, it required 25 Gb of memory, running on a 32 Gb memory machine.\n";
