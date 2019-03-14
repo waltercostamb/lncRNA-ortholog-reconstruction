@@ -30,9 +30,13 @@ if ($help){
         die "\n";
 }
 
-#variables refers to field 10 of the BED12 file, if you want to add introns, work on these variables
+#variables $blocks and $blockStartsFIXED are fixed now, because the script does NOT considers introns
+#If you want to add introns, work on these variables
 my $blocks = 1;
 my $blockStartsFIXED = 0;
+
+#Score is set to zero
+my $score = 0;
 
 #If not every obligatory input has been defined by the user in the command line, print warning
 if ( ! defined($gff_file) || ! defined($type) ) {
@@ -68,7 +72,6 @@ while(<gff_file>){
 			my $chromStart = $row[3] - 1;
 			my $chromEnd = $row[4];
 			my $pre_name = $row[8];
-			my $score = $row[5];
 			my $strand = $row[6];
 			my $thickStart = $chromStart;
 			my $thickEnd = $chromEnd;
