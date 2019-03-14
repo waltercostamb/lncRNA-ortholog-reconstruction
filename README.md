@@ -9,14 +9,23 @@ Usage: buildOrthologs.pl --input MAP_FILE --db REF_BED --map_threshold N --refer
 mandatory parameters:
 
 --input: site MAP_FILE from the SpliceMap Pipeline
+
 --db: REF_BED, or BED12 reference lncRNA database
+
 --map_threshold: splice map threshold for excluding unlikely real splice sites, N can be: undef, -3, 0, 3, etc. (recommended stringent threshold: 3)
+
 --reference: alias of the reference species, example: hg38, ponAbe2, rheMac3, mm10, etc. as in the input MAP_FILE
+
 --blast_address: a file containing two rows divided by a tab: first row with species alias (hg38, mm10, etc.) and second row with full path to index files for BLASTN
+
 --blast_threshold: e-value I threshold for filtering BLASTN hits
+
 --blast_thread: T number of threads to run BLASTN
+
 --db_reg_exp: regular expression EXP used to select lines from the --input MAP_FILE based on the --db REF_BED (e.g. ENST for human Gencode transcripts, ENSMUS for mouse, etc.)
+
 --lower_seq_thresh: lower sequence length threshold L of input sequence to BLAST (anything shorter than L is not submitted to BLAST and marked as invalid reconstruction)
+
 --upper_seq_thresh: upper sequence length threshold U of input sequence to BLAST (anything longer than U is not submitted to BLAST and marked as invalid reconstruction)
 
 #retrieve-fasta
