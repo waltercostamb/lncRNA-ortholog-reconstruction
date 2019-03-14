@@ -70,6 +70,11 @@ if ($help){
 	die "\n";
 }
 
+#If not every obligatory input has been defined by the user in the command line, print warning
+if ( ! defined($map_file) && ! defined($ref_file) && ! defined($threshold) && ! defined($reference_species) && ! defined($blast_file) && ! defined($cutoff) && ! defined($blastThread) && ! defined($DB_reg_exp) && ! defined($lowerThresholdBlastSequenceInput) && ! defined($upperThresholdBlastSequenceInput) ) {
+        die "\nFor usage: $0 --help\n\n";
+}
+
 open ("map_file", $map_file) || die "It was not possible to open file $map_file\n";
 open ("ref_file", $ref_file) || die "It was not possible to open file $ref_file\n";
 open ("blast_file", $blast_file) || die "It was not possible to open file $blast_file\n";
