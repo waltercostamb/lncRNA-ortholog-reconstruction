@@ -2,6 +2,10 @@
 
 This repository contains scripts related to retrieving full-transcript orthologs from a reference list of lncRNAs.
 
+The programs were designed for Unix-based operational systems, so you can use them in any Linux or MacOS computer. For Windows systems you need either specific compilers or a Virtual Machine in addition. To obtain the repository in a Unix machine and use it locally, you can either download the repository directly from the GITHub webpage, or you can clone the repository in the terminal with the following command line:
+
+git clone https://github.com/waltercostamb/lncRNA-ortholog-reconstruction
+
 __***buildOrthologs.pl***__
 
 buildOrthologs.pl retrieves full transcripts from a list of ortholog splice sites of lncRNAs. The main input for the script is a MAP_FILE from the SpliceMap Pipeline (Nitsche et al 2015); the output is in BED12 format.
@@ -23,13 +27,17 @@ mandatory parameters:
 
 __***retrieve-fasta***__
 
-retrieve-fasta retrieves FASTA sequences from a BED12 file
+retrieve-fasta retrieves FASTA sequences from a BED12 file and a reference genome.
 
+Compile the C program to an executable first:
+gcc -o retrieve-fasta retrieve-fasta.c
+
+And then run the executable to retrieve the sequences:
 Usage: retrieve-fasta GENOME_FASTA BED_FILE
 
 __***GFF32BED12.pl***__
 
-GFF32BED12.pl transforms GFF3 features into BED12 lines
+GFF32BED12.pl transforms GFF3 features into BED12 lines.
 
 Usage: perl GFF32BED12.pl --gff GFF3_FILE --type TYPE
 
