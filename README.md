@@ -29,10 +29,10 @@ __***retrieve-fasta***__
 
 retrieve-fasta retrieves FASTA sequences from a BED12 file and a reference genome.
 
-Compile the C program to an executable first:
+Compile the C program to an executable first:  
 gcc -o retrieve-fasta retrieve-fasta.c
 
-And then run the executable to retrieve the sequences:
+And then run the executable to retrieve the sequences:  
 Usage: retrieve-fasta GENOME_FASTA BED_FILE
 
 __***GFF32BED12.pl***__
