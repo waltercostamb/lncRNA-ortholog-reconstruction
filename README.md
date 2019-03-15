@@ -37,7 +37,7 @@ Usage: retrieve-fasta GENOME_FASTA BED_FILE
 
 __***GFF32BED12.pl***__
 
-GFF32BED12.pl transforms GFF3 features into BED12 lines.
+GFF32BED12.pl transforms GFF3 features, or types, into BED12 lines. The parameter --type corresponds to the third column of the GFF file that you wish to transform to BED12 (e.g. CDS, mRNA, gene, etc). The script is currently set to ignore introns, so the BED12 will have only 1 block.
 
 Usage: perl GFF32BED12.pl --gff GFF3_FILE --type TYPE
 
