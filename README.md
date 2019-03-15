@@ -55,3 +55,11 @@ To build the ortholog splice sites, please consult the following publication:
   
 The manuscript on the greedy approach for retrieving full transcripts of lncRNA orthologs is under preparation.
   
+__***Contact***__
+
+If you have any questions or find any problems, contact the developer: bia.walter@gmail.com
+
+__***Author***__
+
+Maria Beatriz Walter Costa  
+https://github.com/waltercostamb
