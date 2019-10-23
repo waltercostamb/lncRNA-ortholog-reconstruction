@@ -1,0 +1,5 @@
+panTro4	$YOUR_PATH_HERE/Pan_troglodytes/UCSC/panTro4.fa
+hg38	$YOUR_PATH_HERE/UCSC/hg38/Homo_sapiens_hg38.fa
+panPan1	$YOUR_PATH_HERE/panPan1.fa
+ponAbe2	$YOUR_PATH_HERE/ponAbe2.fa
+rheMac3	$YOUR_PATH_HERE/UCSC/rheMac3.fa
