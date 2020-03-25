@@ -45,8 +45,8 @@ As an example of how the script works, you can use the MAP_FILE from this reposi
 
 **Example usage:**
     
-    perl --help
-    perl --input primate5.map --db gencode.v26.long_noncoding_RNAs_100.bed --map_threshold 3 --reference hg38 --blast_address blast-address.txt --blast_threshold 1e-10 --blast_thread 3 --db_reg_exp ENST --lower_seq_thresh 30 --upper_seq_thresh 100
+    perl buildOrthologs.pl --help
+    perl buildOrthologs.pl --input primate5.map --db gencode.v26.long_noncoding_RNAs_100.bed --map_threshold 3 --reference hg38 --blast_address blast-address.txt --blast_threshold 1e-10 --blast_thread 3 --db_reg_exp ENST --lower_seq_thresh 30 --upper_seq_thresh 100
 
 ## retrieve-fasta
 
