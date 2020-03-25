@@ -34,9 +34,9 @@ As an example of how the script works, you can use the MAP_FILE from this reposi
 **Requirements:**  
 
   - You should have all of the five genomes unpacked at your server  
-  - Uncompress the MAP_FILE from this repository  
+  - Uncompress the MAP_FILE from this repository, by using the following command on your bash  
   
-    tar xvzf file.tar.gz
+        tar xvzf primates5_subset.map.tar.gz
     
   - Modify the blast-address.txt to include the correct $PATH to your genomes (remember to download the correct versions)
   - Check that your machine has enough memory
@@ -46,7 +46,7 @@ As an example of how the script works, you can use the MAP_FILE from this reposi
 **Example usage:**
     
     perl buildOrthologs.pl --help
-    perl buildOrthologs.pl --input primate5.map --db gencode.v26.long_noncoding_RNAs_100.bed --map_threshold 3 --reference hg38 --blast_address blast-address.txt --blast_threshold 1e-10 --blast_thread 3 --db_reg_exp ENST --lower_seq_thresh 30 --upper_seq_thresh 100
+    perl buildOrthologs.pl --input primates5_subset.map --db gencode.v26.long_noncoding_RNAs_100.bed --map_threshold 3 --reference hg38 --blast_address blast-address.txt --blast_threshold 1e-10 --blast_thread 3 --db_reg_exp ENST --lower_seq_thresh 30 --upper_seq_thresh 100
 
 ## retrieve-fasta
 
